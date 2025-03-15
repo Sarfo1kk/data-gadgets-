@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data & Gadgets Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+            transition: background 0.3s, color 0.3s;
+        }
+        header {
+            background: #333;
+            color: white;
+            padding: 15px;
+        }
+        header p {
+            font-style: italic;
+        }
+        .products {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .product {
+            background: white;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            width: 150px;
+            height: 150px;
+        }
+        .product button {
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #orderForm {
+            display: none;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            width: 300px;
+        }
+        #orderForm input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        #darkModeToggle {
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+        .dark-mode .product {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Data & Gadgets Store</h1>
+        <p>"In God We Trust"</p>
+        <button id="darkModeToggle">Dark Mode</button>
+    </header>
+
+    <section class="products">
+        <div class="product">
+            <img src="phone.jpg" alt="Phone">
+            <h2>Smartphone</h2>
+            <p>Price: $250</p>
+            <button onclick="orderNow('Smartphone', 250)">Buy Now</button>
+        </div>
+
+        <div class="product">
+            <img src="data.jpg" alt="Data Bundle">
+            <h2>Data Bundle - 10GB</h2>
+            <p>Price: $10</p>
+            <button onclick="orderNow('10GB Data Bundle', 10)">Buy Now</button>
+        </div>
+    </section>
+
+    <div id="orderForm">
+        <h2>Place Your Order</h2>
+        <p>Product: <span id="selectedProduct"></span></p>
+        <p>Price: $<span id="selectedPrice"></span></p>
+        <p>Order ID: <span id="orderId"></span></p>
+        <p>Time: <span id="orderTime"></span></p>
+        <input type="text" id="customerName" placeholder="Your Name">
+        <input type="text" id="customerPhone" placeholder="Your Phone Number">
+        <button onclick="submitOrder()">Submit Order</button>
+    </div>
+
+    <script>
+        function orderNow(product, price) {
+            document.getElementById("selectedProduct").innerText = product;
+            document.getElementById("selectedPrice").innerText = price;
+
+            let orderId = "ORD" + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById("orderId").innerText = orderId;
+
+            let dateTime = new Date().toLocaleString();
+            document.getElementById("orderTime").innerText = dateTime;
+
+            document.getElementById("orderForm").style.display = "block";
+        }
+
+        function submitOrder() {
+            let name = document.getElementById("customerName").value;
+            let phone = document.getElementById("customerPhone").value;
+            let orderId = document.getElementById("orderId").innerText;
+
+            if (name === "" || phone === "") {
+                alert("Please enter your name and phone number.");
+                return;
+            }
+
+            alert("Order Placed!\nOrder ID: " + orderId + "\nWe will contact you soon.");
+            document.getElementById("orderForm").style.display = "none";
+        }
+
+        document.getElementById("darkModeToggle").addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+        });
+    </script>
+
+</body>
+</html>
